@@ -2,3 +2,25 @@
 {{title}}
 <button (click)="changeTitle()" [disabled]="modificado">Saludar</button>
 <input type="text" [(ngModel)]="title">
+<input type="text" [(ngModel)]="cantidad">
+<button (click)="sumar()">Sumar</button>
+<button (click)="restar()">Restar</button>
+<h1>Ejemplo class y ngClass</h1>
+<div [class]="divClasscss">{{cantidad}}</div>
+<div [ngClass]="{positivo:cantidad>0,negativo:cantidad<0,cero:cantidad===0}">{{cantidad}}</div>
+<h1>Ejemplo ngIf ngFor</h1>
+<div *ngIf="cantidad>0">cantidad mayor a 0</div>
+<div [hidden]="cantidad===0">cantidad igual a 0</div>
+<div *ngIf="cantidad<0">cantidad menor a 0</div>
+<div>
+    <p *ngFor="let producto of productos1">
+        {{producto}}
+    </p>
+</div>
+<div>
+    <p *ngFor="let producto of productos">
+        {{producto.name}}
+        {{producto.price}}
+    </p>
+</div>
+<button (click)="filtrar()">Filtrar</button>
