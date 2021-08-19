@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ProductosService } from '../productos.service';
 
 @Component({
   selector: 'home',
@@ -7,66 +8,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-productos1=[
-"mercedes",
-"bmw",
-"audi",
-"renault"
-]
+  productos:any=[]
+  productosPromise:any=[]
+  productosPipe:any
 
-productos=[
-  {
-    id:1,
-    name:"bmw",
-    price:5000,
-  },
-  {
-    id:2,
-    name:"audi",
-    price:7000,
-  },
-  {
-    id:3,
-    name:"renault",
-    price:3000,
-  }
-]
-
-  title="bindeo one way binding"
-modificado=false
-  constructor() {
-
+  constructor(private productosService:ProductosService) {
+    //pipe
+    this.productosPipe = this.productosService.getAll()
+    //observable
+    this.productos = this.productosService.getAll()
+    .subscribe(data=>{
+      console.log("data",data)
+      this.productos = data
+    })
+    //promise
+    this.getProductos()
    }
 
-   filtrar(){
-     this.productos1=["mercedes"]
-   }
-   changeTitle(){
-    this.title="hola andres"
-    this.modificado=true
-   }
-   cantidad = 0
-   divClasscss = ""
-   sumar(){
-    this.cantidad++
-    if(this.cantidad>0){
-      this.divClasscss = "positivo"
-    }else if(this.cantidad === 0){
-      this.divClasscss = "cero"
-    }else{
-      this.divClasscss = "negativo"
+   async getProductos(){
+     this.productosPromise = await this.productosService.getAllPromise()
     }
-   }
-   restar(){
-    this.cantidad--
-    if(this.cantidad>0){
-      this.divClasscss = "positivo"
-    }else if(this.cantidad === 0){
-      this.divClasscss = "cero"
-    }else{
-      this.divClasscss = "negativo"
-    }
-   }
   ngOnInit(): void {
   }
 
